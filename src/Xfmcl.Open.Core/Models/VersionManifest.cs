@@ -7,7 +7,7 @@
 
 namespace XfmclOpen.Core.Models;
 
-/// <summary>Mojang 版本清单（version_manifest_v2.json）。</summary>
+/// <summary>版本清单（version_manifest_v2.json）。</summary>
 public sealed class VersionManifest
 {
     public LatestVersions? Latest { get; set; }

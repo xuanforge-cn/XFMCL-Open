@@ -25,7 +25,7 @@ public sealed class MirrorSource
 
     public Endpoints Endpoints => _endpoints;
 
-    public string DisplayName => Kind == DownloadSourceKind.BmclApi ? "镜像源" : "官方源";
+    public string DisplayName => Kind == DownloadSourceKind.Mirror ? "镜像源" : "官方源";
 
     /// <summary>重写单个地址；官方源原样返回。</summary>
     public string Rewrite(string url)
@@ -61,7 +61,7 @@ public sealed class MirrorSource
     /// <summary>库文件缺失下载地址时，按 Maven 坐标拼接。</summary>
     public string LibraryUrl(string mavenPath)
     {
-        return Kind == DownloadSourceKind.BmclApi
+        return Kind == DownloadSourceKind.Mirror
             ? $"{_endpoints.MirrorRoot}/maven/{mavenPath}"
             : $"{_endpoints.LibrariesRoot}/{mavenPath}";
     }
@@ -69,7 +69,7 @@ public sealed class MirrorSource
     /// <summary>资源对象下载地址。</summary>
     public string AssetUrl(string hash)
     {
-        return Kind == DownloadSourceKind.BmclApi
+        return Kind == DownloadSourceKind.Mirror
             ? $"{_endpoints.MirrorRoot}/assets/{hash[..2]}/{hash}"
             : $"{_endpoints.ResourcesRoot}/{hash[..2]}/{hash}";
     }

@@ -83,8 +83,8 @@ public sealed class AppSettings
                         settings.PlayerName = value;
                         break;
                     case "source":
-                        settings.Source = string.Equals(value, "bmclapi", StringComparison.OrdinalIgnoreCase)
-                            ? DownloadSourceKind.BmclApi
+                        settings.Source = string.Equals(value, "mirror", StringComparison.OrdinalIgnoreCase)
+                            ? DownloadSourceKind.Mirror
                             : DownloadSourceKind.Official;
                         break;
                     case "dir" when value.Length > 0:
@@ -110,7 +110,7 @@ public sealed class AppSettings
         try
         {
             Directory.CreateDirectory(ConfigDirectory);
-            var source = Source == DownloadSourceKind.BmclApi ? "bmclapi" : "official";
+            var source = Source == DownloadSourceKind.Mirror ? "mirror" : "official";
             File.WriteAllLines(FilePath, new[]
             {
                 "name=" + PlayerName,

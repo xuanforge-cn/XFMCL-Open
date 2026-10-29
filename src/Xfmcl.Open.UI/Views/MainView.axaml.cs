@@ -66,12 +66,12 @@ public partial class MainView : UserControl
     private static bool CanLaunch => !OperatingSystem.IsAndroid();
 
     private DownloadSourceKind SelectedSource =>
-        SourceMirrorButton.IsChecked == true ? DownloadSourceKind.BmclApi : DownloadSourceKind.Official;
+        SourceMirrorButton.IsChecked == true ? DownloadSourceKind.Mirror : DownloadSourceKind.Official;
 
     private async Task InitializeAsync()
     {
         NameBox.Text = _settings.PlayerName;
-        var mirrorSelected = _settings.Source == DownloadSourceKind.BmclApi;
+        var mirrorSelected = _settings.Source == DownloadSourceKind.Mirror;
         SourceMirrorButton.IsChecked = mirrorSelected;
         SourceOfficialButton.IsChecked = !mirrorSelected;
         GameDirBox.Text = _settings.GameDirectory;

@@ -10,7 +10,7 @@ package cn.xuanforge.xfmclopen.data
 
 enum class DownloadSource(val label: String) {
     OFFICIAL("官方源"),
-    BMCLAPI("镜像源")
+    MIRROR("镜像源")
 }
 
 class Mirror(val endpoints: Endpoints, private val source: DownloadSource) {
@@ -30,10 +30,10 @@ class Mirror(val endpoints: Endpoints, private val source: DownloadSource) {
     }
 
     fun libraryUrl(mavenPath: String): String =
-        if (source == DownloadSource.BMCLAPI) "${endpoints.mirrorRoot}/maven/$mavenPath"
+        if (source == DownloadSource.MIRROR) "${endpoints.mirrorRoot}/maven/$mavenPath"
         else "${endpoints.librariesRoot}/$mavenPath"
 
     fun assetUrl(hash: String): String =
-        if (source == DownloadSource.BMCLAPI) "${endpoints.mirrorRoot}/assets/${hash.take(2)}/$hash"
+        if (source == DownloadSource.MIRROR) "${endpoints.mirrorRoot}/assets/${hash.take(2)}/$hash"
         else "${endpoints.resourcesRoot}/${hash.take(2)}/$hash"
 }

@@ -2,7 +2,7 @@
  * VersionRepository.kt - 版本清单与版本描述读取
  * 玹砺科技 XUANFORGE
  *
- * 下载顺序：所选下载源 → Mojang 官方；本地 JSON 损坏时自动重下。
+ * 下载顺序：所选下载源 → 官方源；本地 JSON 损坏时自动重下。
  * 本项目以 MIT 协议开源。
  */
 

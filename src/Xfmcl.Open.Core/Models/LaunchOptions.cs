@@ -44,9 +44,9 @@ public sealed class LaunchOptions
 /// <summary>下载源类型。</summary>
 public enum DownloadSourceKind
 {
-    /// <summary>Mojang 官方源。</summary>
+    /// <summary>官方源。</summary>
     Official = 0,
 
-    /// <summary>BMCLAPI 镜像源。</summary>
-    BmclApi = 1
+    /// <summary>镜像源。</summary>
+    Mirror = 1
 }

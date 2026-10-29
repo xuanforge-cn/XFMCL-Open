@@ -42,8 +42,11 @@ class LauncherState(context: Context) {
 
     var playerName by mutableStateOf(prefs.getString("name", "Player") ?: "Player")
     var source by mutableStateOf(
-        runCatching { DownloadSource.valueOf(prefs.getString("source", DownloadSource.OFFICIAL.name)!!) }
-            .getOrDefault(DownloadSource.OFFICIAL)
+        if (prefs.getString("source", DownloadSource.OFFICIAL.name) == DownloadSource.MIRROR.name) {
+            DownloadSource.MIRROR
+        } else {
+            DownloadSource.OFFICIAL
+        }
     )
 
     var versions by mutableStateOf<List<VersionRow>>(emptyList())
