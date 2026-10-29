@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <title>XFMCL Open</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="glow glow-a" aria-hidden="true"></div>
+  <div class="glow glow-b" aria-hidden="true"></div>
+
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">XO</div>
+        <div class="brand-text">
+          <h1>XFMCL Open</h1>
+          <p>跨平台 · 开源 · 仅离线登录</p>
+        </div>
+      </div>
+      <div class="pills">
+        <span id="endpointPill" class="pill">检查配置…</span>
+        <span class="version">v1.0.0</span>
+      </div>
+    </header>
+
+    <section class="layout">
+      <aside class="card side">
+        <p class="eyebrow">ACCOUNT</p>
+        <h2>离线登录</h2>
+
+        <label class="label" for="playerName">玩家名</label>
+        <input id="playerName" maxlength="16" autocomplete="off" placeholder="3-16 位字母、数字或下划线" />
+        <p class="hint">UUID 由玩家名在本地生成，不会上传到任何服务器。</p>
+
+        <p class="label spaced">下载源</p>
+        <div class="segmented" id="sourceSwitch">
+          <button type="button" data-source="OFFICIAL">官方源</button>
+          <button type="button" data-source="MIRROR">镜像源</button>
+        </div>
+
+        <p class="label spaced">游戏目录</p>
+        <div id="gameDir" class="path">—</div>
+
+        <div class="info">
+          <p class="eyebrow">当前选择</p>
+          <div class="row"><span>版本</span><b id="selectedVersion">—</b></div>
+          <div class="row"><span>状态</span><b id="selectedState">未选择</b></div>
+        </div>
+
+        <div class="actions">
+          <button id="downloadButton" class="btn secondary" type="button" disabled>下载 / 补全文件</button>
+          <button id="cancelButton" class="btn ghost hidden" type="button">取消当前任务</button>
+        </div>
+      </aside>
+
+      <section class="card main">
+        <div class="toolbar">
+          <input id="search" placeholder="搜索版本，例如 1.20.1" autocomplete="off" />
+          <button id="refreshButton" class="btn ghost small" type="button">刷新</button>
+        </div>
+
+        <div id="versionList" class="versions" role="listbox" aria-label="版本列表"></div>
+
+        <div class="statusbar">
+          <span id="status">准备就绪</span>
+          <span id="progressText"></span>
+        </div>
+        <div class="progress"><div id="progressBar" class="bar"></div></div>
+
+        <div class="logbox">
+          <p class="eyebrow">RUN LOG</p>
+          <pre id="log"></pre>
+        </div>
+      </section>
+    </section>
+
+    <footer>
+      <span class="copyright">玹砺科技 XUANFORGE · MIT License · 本项目与 Mojang / Microsoft 无关</span>
+      <button id="openDirButton" class="btn ghost small" type="button">游戏目录</button>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast hidden" role="status"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

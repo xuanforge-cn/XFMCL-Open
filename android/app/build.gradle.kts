@@ -104,6 +104,11 @@ android {
         compose = true
     }
 
+    sourceSets["main"].assets.srcDirs(
+        "src/main/assets",
+        "../../templates/html"
+    )
+
     packaging {
         resources {
             excludes += setOf(

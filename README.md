@@ -72,6 +72,8 @@ XFMCL 开源版/
 │  ├─ Xfmcl.Open.Core/         版本清单、下载、文件补全、Java 探测、离线身份、启动编排
 │  ├─ Xfmcl.Open.UI/           跨平台界面（MainView）、设置、版本行模型
 │  └─ Xfmcl.Open.Desktop/      Windows / Linux / macOS 桌面入口
+├─ templates/
+│  └─ html/                    HTML 第二模板（index.html / styles.css / app.js）
 └─ android/                    Android 原生工程（Kotlin + Jetpack Compose）
    ├─ settings.gradle.kts
    ├─ build.gradle.kts
@@ -148,6 +150,34 @@ cd android
 - macOS：`~/Library/Application Support/XFMCL-Open/endpoints.json`
 
 Android 端：修改 `android/app/src/main/assets/endpoints.json` 后重新构建 APK。
+
+## HTML 模板（Android WebView）
+
+`templates/html` 是第二套界面模板，由原生 HTML / CSS / JavaScript 编写，通过 Android WebView 承载，主界面底部「HTML 模板」进入。
+
+- 模板只负责界面；版本清单、下载、SHA1 校验、进度全部调用现有 Kotlin 下载器（`VersionRepository` / `GameInstaller`）。
+- Gradle 的 `assets.srcDirs` 直接指向 `templates/html`，无需复制文件。
+- 桌面端未内置 WebView，暂不提供该模板入口。
+
+桥接协议：
+
+| 页面调用 `window.XfmclAndroid` | 说明 |
+| --- | --- |
+| `init()` | 请求初始化信息 |
+| `loadVersions(force)` | 读取版本清单 |
+| `download(versionId)` | 下载 / 补全指定版本 |
+| `cancel()` | 取消当前任务 |
+| `saveSettings(name, source)` | 保存玩家名与下载源 |
+| `openDirectory()` | 显示游戏目录 |
+
+| 宿主回调 `window.XfmclNative` | 说明 |
+| --- | --- |
+| `onInit(json)` | 配置状态、玩家名、目录 |
+| `onVersions(json)` | 版本数组 |
+| `onProgress(json)` | 阶段、已完成、总数、字节数 |
+| `onLog(text)` | 运行日志 |
+| `onDone(ok, message)` | 任务结束 |
+| `onError(message)` | 错误信息 |
 
 ## 配置与数据
 

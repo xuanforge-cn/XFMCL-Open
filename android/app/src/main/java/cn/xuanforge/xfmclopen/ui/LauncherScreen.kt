@@ -8,6 +8,7 @@
 
 package cn.xuanforge.xfmclopen.ui
 
+import android.content.Intent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -57,6 +58,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cn.xuanforge.xfmclopen.WebLauncherActivity
 import cn.xuanforge.xfmclopen.data.DownloadSource
 import cn.xuanforge.xfmclopen.data.OfflineIdentity
 import cn.xuanforge.xfmclopen.data.VersionRow
@@ -97,11 +99,22 @@ fun LauncherScreen() {
             Spacer(Modifier.height(8.dp))
             LogBlock(state, logScroll)
             Spacer(Modifier.height(4.dp))
-            Text(
-                text = "玹砺科技 XUANFORGE · MIT License",
-                fontSize = 9.sp,
-                color = TextLow
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "玹砺科技 XUANFORGE · MIT License",
+                    fontSize = 9.sp,
+                    color = TextLow,
+                    modifier = Modifier.weight(1f)
+                )
+                TextButton(onClick = {
+                    context.startActivity(Intent(context, WebLauncherActivity::class.java))
+                }) {
+                    Text("HTML 模板", fontSize = 10.sp, color = TextMid)
+                }
+            }
         }
     }
 }

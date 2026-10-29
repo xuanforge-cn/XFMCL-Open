@@ -21,5 +21,11 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+
+    <activity
+        android:name=".WebLauncherActivity"
+        android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode"
+        android:exported="false"
+        android:theme="@style/Theme.XfmclOpen" />
   </application>
 </manifest>
