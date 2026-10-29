@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import cn.xuanforge.xfmclopen.data.DownloadSource
+import cn.xuanforge.xfmclopen.data.Endpoints
 import cn.xuanforge.xfmclopen.data.GameInstaller
 import cn.xuanforge.xfmclopen.data.GamePaths
 import cn.xuanforge.xfmclopen.data.ManifestVersion
@@ -37,6 +38,7 @@ class LauncherState(context: Context) {
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
     val paths = GamePaths(context)
+    val endpoints = Endpoints.load(context)
 
     var playerName by mutableStateOf(prefs.getString("name", "Player") ?: "Player")
     var source by mutableStateOf(
@@ -93,6 +95,12 @@ class LauncherState(context: Context) {
             return
         }
 
+        if (!endpoints.isConfigured) {
+            status = "尚未配置下载端点"
+            appendLog("请填写 assets/endpoints.json 后重新打开应用。")
+            return
+        }
+
         val version = selectedVersion ?: return
         val name = playerName.trim()
         if (!OfflineIdentity.isValid(name)) {
@@ -111,7 +119,7 @@ class LauncherState(context: Context) {
             status = "正在准备 ${version.id}…"
 
             try {
-                val mirror = Mirror(source)
+                val mirror = Mirror(endpoints, source)
                 val repository = VersionRepository(mirror, paths) { appendLog(it) }
                 val entry = manifest.firstOrNull { it.id == version.id }
                     ?: throw IllegalStateException("版本 ${version.id} 不在清单中。")
@@ -156,12 +164,18 @@ class LauncherState(context: Context) {
     }
 
     private suspend fun loadVersions(force: Boolean) {
+        if (!endpoints.isConfigured) {
+            status = "尚未配置下载端点"
+            appendLog("请填写 assets/endpoints.json 中的 manifestUrl 与 mirrorRoot。")
+            return
+        }
+
         busy = true
         indeterminate = true
         status = "正在读取版本清单…"
 
         try {
-            val repository = VersionRepository(Mirror(source), paths) { appendLog(it) }
+            val repository = VersionRepository(Mirror(endpoints, source), paths) { appendLog(it) }
             val list = repository.fetchManifest(force)
             manifest = list
             versions = list.map {

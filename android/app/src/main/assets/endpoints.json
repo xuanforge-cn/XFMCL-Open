@@ -1,0 +1,8 @@
+{
+  "manifestUrl": "https://example.com/minecraft/version_manifest_v2.json",
+  "metaRoot": "https://example.com/minecraft/meta",
+  "dataRoot": "https://example.com/minecraft/data",
+  "librariesRoot": "https://example.com/minecraft/libraries",
+  "resourcesRoot": "https://example.com/minecraft/resources",
+  "mirrorRoot": "https://example.com/minecraft/mirror"
+}

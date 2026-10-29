@@ -23,6 +23,7 @@ namespace XfmclOpen.UI.Views;
 public partial class MainView : UserControl
 {
     private readonly AppSettings _settings = AppSettings.Load();
+    private readonly Endpoints _endpoints = Endpoints.Load(Path.Combine(AppSettings.ConfigDirectory, "endpoints.json"));
     private readonly ObservableCollection<VersionRow> _all = new();
     private readonly ObservableCollection<VersionRow> _visible = new();
     private readonly StringBuilder _logText = new();
@@ -76,6 +77,16 @@ public partial class MainView : UserControl
         GameDirBox.Text = _settings.GameDirectory;
 
         _ = DetectJavaAsync();
+
+        if (!_endpoints.IsConfigured)
+        {
+            StatusText.Text = "尚未配置下载端点";
+            AppendLog("请复制 config/endpoints.example.json 到 " +
+                      Path.Combine(AppSettings.ConfigDirectory, "endpoints.json") +
+                      "，并填写实际下载地址。");
+            return;
+        }
+
         await LoadVersionsAsync(forceRefresh: false);
     }
 
@@ -115,7 +126,7 @@ public partial class MainView : UserControl
             var paths = new GamePaths(GameDirBox.Text ?? AppSettings.DefaultGameDirectory);
             paths.EnsureCreated();
 
-            var repository = new VersionRepository(_service.Http, paths, new MirrorSource(SelectedSource));
+            var repository = new VersionRepository(_service.Http, paths, new MirrorSource(SelectedSource, _endpoints));
             var manifest = await repository.GetManifestAsync(forceRefresh, _cts.Token);
 
             _all.Clear();
@@ -210,6 +221,13 @@ public partial class MainView : UserControl
             return;
         }
 
+        if (!_endpoints.IsConfigured)
+        {
+            StatusText.Text = "尚未配置下载端点";
+            AppendLog("请先配置 endpoints.json 后再下载或启动。");
+            return;
+        }
+
         SaveSettings();
 
         _cts = new CancellationTokenSource();
@@ -226,6 +244,7 @@ public partial class MainView : UserControl
                 VersionId = row.Id,
                 PlayerName = name,
                 Source = SelectedSource,
+                Endpoints = _endpoints,
                 InstallOnly = installOnly
             };
 

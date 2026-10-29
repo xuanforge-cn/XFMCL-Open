@@ -21,7 +21,7 @@ class GameInstaller(
     private val mirror: Mirror,
     private val log: (String) -> Unit
 ) {
-    private val official = Mirror(DownloadSource.OFFICIAL)
+    private val official = Mirror(mirror.endpoints, DownloadSource.OFFICIAL)
 
     suspend fun install(detail: JSONObject, onProgress: (DownloadProgress) -> Unit) = withContext(Dispatchers.IO) {
         paths.ensureCreated()

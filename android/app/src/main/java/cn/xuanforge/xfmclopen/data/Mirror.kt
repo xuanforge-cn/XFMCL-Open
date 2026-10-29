@@ -2,18 +2,18 @@
  * Mirror.kt - 下载源
  * 玹砺科技 XUANFORGE
  *
- * 官方源面向境外直连；BMCLAPI 用于国内网络环境加速。
+ * 地址全部来自 Endpoints，代码内不包含真实服务地址。
  * 本项目以 MIT 协议开源。
  */
 
 package cn.xuanforge.xfmclopen.data
 
 enum class DownloadSource(val label: String) {
-    OFFICIAL("Mojang 官方源"),
-    BMCLAPI("BMCLAPI 镜像源")
+    OFFICIAL("官方源"),
+    BMCLAPI("镜像源")
 }
 
-class Mirror(private val source: DownloadSource) {
+class Mirror(val endpoints: Endpoints, private val source: DownloadSource) {
 
     fun rewrite(url: String): String {
         if (source == DownloadSource.OFFICIAL || url.isEmpty()) {
@@ -21,26 +21,19 @@ class Mirror(private val source: DownloadSource) {
         }
 
         return when {
-            url.startsWith(META) -> ROOT + url.removePrefix(META)
-            url.startsWith(DATA) -> ROOT + url.removePrefix(DATA)
-            url.startsWith(LIBRARIES) -> ROOT + "/maven" + url.removePrefix(LIBRARIES)
-            url.startsWith(RESOURCES) -> ROOT + "/assets" + url.removePrefix(RESOURCES)
+            url.startsWith(endpoints.metaRoot) -> endpoints.mirrorRoot + url.removePrefix(endpoints.metaRoot)
+            url.startsWith(endpoints.dataRoot) -> endpoints.mirrorRoot + url.removePrefix(endpoints.dataRoot)
+            url.startsWith(endpoints.librariesRoot) -> endpoints.mirrorRoot + "/maven" + url.removePrefix(endpoints.librariesRoot)
+            url.startsWith(endpoints.resourcesRoot) -> endpoints.mirrorRoot + "/assets" + url.removePrefix(endpoints.resourcesRoot)
             else -> url
         }
     }
 
     fun libraryUrl(mavenPath: String): String =
-        if (source == DownloadSource.BMCLAPI) "$ROOT/maven/$mavenPath" else "$LIBRARIES/$mavenPath"
+        if (source == DownloadSource.BMCLAPI) "${endpoints.mirrorRoot}/maven/$mavenPath"
+        else "${endpoints.librariesRoot}/$mavenPath"
 
     fun assetUrl(hash: String): String =
-        if (source == DownloadSource.BMCLAPI) "$ROOT/assets/${hash.take(2)}/$hash"
-        else "$RESOURCES/${hash.take(2)}/$hash"
-
-    companion object {
-        private const val ROOT = "https://bmclapi2.bangbang93.com"
-        private const val META = "https://piston-meta.mojang.com"
-        private const val DATA = "https://piston-data.mojang.com"
-        private const val LIBRARIES = "https://libraries.minecraft.net"
-        private const val RESOURCES = "https://resources.download.minecraft.net"
-    }
+        if (source == DownloadSource.BMCLAPI) "${endpoints.mirrorRoot}/assets/${hash.take(2)}/$hash"
+        else "${endpoints.resourcesRoot}/${hash.take(2)}/$hash"
 }

@@ -274,9 +274,9 @@
                       CornerRadius="10" Padding="3">
                 <Grid ColumnDefinitions="*,*">
                   <ToggleButton x:Name="SourceOfficialButton" Classes="segment"
-                                Content="Mojang 官方" Click="Source_Click" />
+                                Content="官方源" Click="Source_Click" />
                   <ToggleButton x:Name="SourceMirrorButton" Grid.Column="1" Classes="segment"
-                                Content="BMCLAPI 镜像" Click="Source_Click" />
+                                Content="镜像源" Click="Source_Click" />
                 </Grid>
               </Border>
             </StackPanel>

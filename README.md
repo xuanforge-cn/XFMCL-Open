@@ -13,7 +13,7 @@
 - **离线登录**：玩家名在本地按 `OfflinePlayer:<name>` 规则生成 v3 UUID，不请求任何账号服务器。
 - **版本列表**：读取 Mojang 版本清单，支持正式版 / 快照，支持关键字搜索。
 - **下载 / 补全**：client.jar、libraries、natives、assets、日志配置，SHA1 校验，已完成的文件自动跳过。
-- **双下载源**：Mojang 官方源与 BMCLAPI 镜像源，单个文件失败时自动切换备用地址。
+- **双下载源**：官方源与镜像源（地址全部从配置读取），单个文件失败时自动切换备用地址。
 - **自动探测 Java**：覆盖 Windows / Linux / macOS 常见安装位置，按所选版本要求挑选运行时。
 - **启动与日志**：启动游戏进程并把标准输出实时显示在界面内。
 
@@ -63,6 +63,8 @@ JSON、下载、哈希校验、进程管理全部使用 .NET 内置 API，没有
 ```
 XFMCL 开源版/
 ├─ Xfmcl.Open.slnx            桌面解决方案
+├─ config/
+│  └─ endpoints.example.json   下载端点模板（复制后填写）
 ├─ LICENSE
 ├─ README.md
 ├─ 修改记录.md
@@ -123,6 +125,29 @@ cd android
 - `signing.properties` 只保存凭据文件路径，密码从外部 `keystore.properties` 读取，不进入仓库；凭据缺失时自动跳过签名，构建不会失败。
 - 发布包使用 `CN=XuanForge` 证书，出包后可用 `apksigner verify --print-certs` 校验。
 - 当前 release APK 约 1.1 MB，debug APK 约 8.4 MB。
+
+## 下载端点配置（必须）
+
+仓库内**不包含任何真实下载地址**，所有端点默认是 `example.com` 占位符。首次使用前必须配置，否则启动器只显示界面，不会发起下载请求。
+
+字段说明：
+
+| 字段 | 用途 |
+| --- | --- |
+| `manifestUrl` | 版本清单 JSON 地址 |
+| `metaRoot` | 版本元数据根地址 |
+| `dataRoot` | 版本数据根地址（client.jar 等） |
+| `librariesRoot` | 依赖库根地址 |
+| `resourcesRoot` | 资源文件根地址 |
+| `mirrorRoot` | 镜像源根地址 |
+
+桌面端：把 `config/endpoints.example.json` 复制到配置目录并改名为 `endpoints.json`：
+
+- Windows：`%APPDATA%\XFMCL-Open\endpoints.json`
+- Linux：`~/.config/XFMCL-Open/endpoints.json`
+- macOS：`~/Library/Application Support/XFMCL-Open/endpoints.json`
+
+Android 端：修改 `android/app/src/main/assets/endpoints.json` 后重新构建 APK。
 
 ## 配置与数据
 

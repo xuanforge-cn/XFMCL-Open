@@ -64,12 +64,17 @@ public sealed class LaunchService
             throw new ArgumentException("请先选择游戏版本。", nameof(options));
         }
 
+        if (!options.Endpoints.IsConfigured)
+        {
+            throw new InvalidOperationException("尚未配置下载端点，请先在 endpoints.json 中填写 manifestUrl 与 mirrorRoot。");
+        }
+
         Directory.CreateDirectory(options.GameDirectory);
 
         var paths = new GamePaths(options.GameDirectory);
         paths.EnsureCreated();
 
-        var mirror = new MirrorSource(options.Source);
+        var mirror = new MirrorSource(options.Source, options.Endpoints);
         var repository = new VersionRepository(Http, paths, mirror);
 
         log?.Invoke($"下载源：{mirror.DisplayName}");

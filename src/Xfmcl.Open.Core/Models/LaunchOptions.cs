@@ -34,6 +34,9 @@ public sealed class LaunchOptions
     /// <summary>下载源。</summary>
     public DownloadSourceKind Source { get; set; } = DownloadSourceKind.Official;
 
+    /// <summary>下载端点配置（默认占位符，需从 endpoints.json 加载）。</summary>
+    public Services.Endpoints Endpoints { get; set; } = new();
+
     /// <summary>只补齐文件，不启动游戏。</summary>
     public bool InstallOnly { get; set; }
 }

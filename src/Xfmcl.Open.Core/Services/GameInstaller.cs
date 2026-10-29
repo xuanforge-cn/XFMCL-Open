@@ -49,7 +49,7 @@ public sealed class GameInstaller
 
     private readonly GamePaths _paths;
     private readonly MirrorSource _mirror;
-    private readonly MirrorSource _official = new(DownloadSourceKind.Official);
+    private readonly MirrorSource _official;
     private readonly HttpClient _http;
     private readonly Action<string>? _log;
 
@@ -57,6 +57,7 @@ public sealed class GameInstaller
     {
         _paths = paths;
         _mirror = mirror;
+        _official = new MirrorSource(DownloadSourceKind.Official, mirror.Endpoints);
         _http = http;
         _log = log;
     }

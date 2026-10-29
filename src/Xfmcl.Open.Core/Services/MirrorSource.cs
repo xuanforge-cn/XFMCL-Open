@@ -2,7 +2,7 @@
  * MirrorSource.cs - 下载源重写
  * 玹砺科技 XUANFORGE
  *
- * 官方源面向境外直连；BMCLAPI 用于国内网络环境加速。
+ * 所有地址来自 Endpoints 配置，代码内不包含真实服务地址。
  * 本项目以 MIT 协议开源。
  */
 
@@ -10,19 +10,22 @@ using XfmclOpen.Core.Models;
 
 namespace XfmclOpen.Core.Services;
 
-/// <summary>把 Mojang 官方地址按所选下载源重写。</summary>
+/// <summary>按所选下载源重写地址；官方源原样返回。</summary>
 public sealed class MirrorSource
 {
-    private const string BmclApiRoot = "https://bmclapi2.bangbang93.com";
+    private readonly Endpoints _endpoints;
 
-    public MirrorSource(DownloadSourceKind kind)
+    public MirrorSource(DownloadSourceKind kind, Endpoints endpoints)
     {
         Kind = kind;
+        _endpoints = endpoints;
     }
 
     public DownloadSourceKind Kind { get; }
 
-    public string DisplayName => Kind == DownloadSourceKind.BmclApi ? "BMCLAPI 镜像源" : "Mojang 官方源";
+    public Endpoints Endpoints => _endpoints;
+
+    public string DisplayName => Kind == DownloadSourceKind.BmclApi ? "镜像源" : "官方源";
 
     /// <summary>重写单个地址；官方源原样返回。</summary>
     public string Rewrite(string url)
@@ -32,29 +35,24 @@ public sealed class MirrorSource
             return url;
         }
 
-        const string meta = "https://piston-meta.mojang.com";
-        const string data = "https://piston-data.mojang.com";
-        const string libraries = "https://libraries.minecraft.net";
-        const string resources = "https://resources.download.minecraft.net";
-
-        if (url.StartsWith(meta, StringComparison.OrdinalIgnoreCase))
+        if (url.StartsWith(_endpoints.MetaRoot, StringComparison.OrdinalIgnoreCase))
         {
-            return BmclApiRoot + url[meta.Length..];
+            return _endpoints.MirrorRoot + url[_endpoints.MetaRoot.Length..];
         }
 
-        if (url.StartsWith(data, StringComparison.OrdinalIgnoreCase))
+        if (url.StartsWith(_endpoints.DataRoot, StringComparison.OrdinalIgnoreCase))
         {
-            return BmclApiRoot + url[data.Length..];
+            return _endpoints.MirrorRoot + url[_endpoints.DataRoot.Length..];
         }
 
-        if (url.StartsWith(libraries, StringComparison.OrdinalIgnoreCase))
+        if (url.StartsWith(_endpoints.LibrariesRoot, StringComparison.OrdinalIgnoreCase))
         {
-            return BmclApiRoot + "/maven" + url[libraries.Length..];
+            return _endpoints.MirrorRoot + "/maven" + url[_endpoints.LibrariesRoot.Length..];
         }
 
-        if (url.StartsWith(resources, StringComparison.OrdinalIgnoreCase))
+        if (url.StartsWith(_endpoints.ResourcesRoot, StringComparison.OrdinalIgnoreCase))
         {
-            return BmclApiRoot + "/assets" + url[resources.Length..];
+            return _endpoints.MirrorRoot + "/assets" + url[_endpoints.ResourcesRoot.Length..];
         }
 
         return url;
@@ -64,15 +62,15 @@ public sealed class MirrorSource
     public string LibraryUrl(string mavenPath)
     {
         return Kind == DownloadSourceKind.BmclApi
-            ? $"{BmclApiRoot}/maven/{mavenPath}"
-            : $"https://libraries.minecraft.net/{mavenPath}";
+            ? $"{_endpoints.MirrorRoot}/maven/{mavenPath}"
+            : $"{_endpoints.LibrariesRoot}/{mavenPath}";
     }
 
     /// <summary>资源对象下载地址。</summary>
     public string AssetUrl(string hash)
     {
         return Kind == DownloadSourceKind.BmclApi
-            ? $"{BmclApiRoot}/assets/{hash[..2]}/{hash}"
-            : $"https://resources.download.minecraft.net/{hash[..2]}/{hash}";
+            ? $"{_endpoints.MirrorRoot}/assets/{hash[..2]}/{hash}"
+            : $"{_endpoints.ResourcesRoot}/{hash[..2]}/{hash}";
     }
 }

@@ -31,7 +31,7 @@ class VersionRepository(
             }
         }
 
-        val text = downloadWithFallback(MANIFEST_URL)
+        val text = downloadWithFallback(mirror.endpoints.manifestUrl)
         paths.manifestFile.writeText(text)
         parseManifest(text)
     }
@@ -83,7 +83,7 @@ class VersionRepository(
         System.currentTimeMillis() - file.lastModified() < 30 * 60_000L
 
     private fun downloadWithFallback(url: String): String {
-        val official = Mirror(DownloadSource.OFFICIAL).rewrite(url)
+        val official = Mirror(mirror.endpoints, DownloadSource.OFFICIAL).rewrite(url)
         val candidates = listOf(mirror.rewrite(url), official).distinct()
         var last: Exception? = null
 
@@ -96,9 +96,5 @@ class VersionRepository(
         }
 
         throw IOException("下载失败：${last?.message}", last)
-    }
-
-    companion object {
-        private const val MANIFEST_URL = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json"
     }
 }

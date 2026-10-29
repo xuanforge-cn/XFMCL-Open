@@ -16,18 +16,17 @@ namespace XfmclOpen.Core.Services;
 /// <summary>负责拉取并缓存版本清单与版本描述文件。</summary>
 public sealed class VersionRepository
 {
-    private const string ManifestUrl = "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json";
-
     private readonly HttpClient _http;
     private readonly GamePaths _paths;
     private readonly MirrorSource _mirror;
-    private readonly MirrorSource _official = new(DownloadSourceKind.Official);
+    private readonly MirrorSource _official;
 
     public VersionRepository(HttpClient http, GamePaths paths, MirrorSource mirror)
     {
         _http = http;
         _paths = paths;
         _mirror = mirror;
+        _official = new MirrorSource(DownloadSourceKind.Official, mirror.Endpoints);
     }
 
     /// <summary>所选源失败并回退到其它源时为 true。</summary>
@@ -65,7 +64,7 @@ public sealed class VersionRepository
         {
             try
             {
-                var manifest = await FetchManifestAsync(source.Rewrite(ManifestUrl), ct).ConfigureAwait(false);
+                var manifest = await FetchManifestAsync(source.Rewrite(_mirror.Endpoints.ManifestUrl), ct).ConfigureAwait(false);
                 UsedFallback |= source.Kind != _mirror.Kind;
                 return manifest;
             }
