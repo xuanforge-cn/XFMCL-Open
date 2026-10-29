@@ -137,10 +137,22 @@ cd android
 - 本项目只实现离线身份，不接受“正版登录”“绕过鉴权”类改动。
 - 代码风格：C# 使用可空引用类型与源生成 JSON；Kotlin 使用官方风格并保持依赖版本锁定。
 
+## 第三方许可
+
+| 依赖 | 许可 |
+| --- | --- |
+| Avalonia / Avalonia.Desktop / Avalonia.Themes.Fluent / Avalonia.Fonts.Inter | MIT |
+| .NET 运行时 | MIT |
+| AndroidX / Jetpack Compose / kotlinx.coroutines | Apache-2.0 |
+| Kotlin / Android Gradle Plugin | Apache-2.0 |
+| Inter 字体 | SIL Open Font License 1.1 |
+
+本项目自身以 MIT 发布，上述依赖与字体保留各自许可。再分发（包括闭源分发）时必须保留本项目的版权声明与 LICENSE 文本；游戏资源不包含在本仓库。
+
 ## 版权
 
-Copyright (c) 2026 玹砺科技 XUANFORGE
+Copyright (C) 2026 玹砺科技 XUANFORGE
 
-本项目以 MIT 协议开源，详见 [LICENSE](LICENSE)。
+本项目以 MIT 协议开源，详见 [LICENSE](LICENSE)。再分发（包括闭源分发）时必须保留上述版权声明与 LICENSE 文本。
 
 本项目仅用于技术学习与个人使用，不提供任何游戏本体或账号。下载的游戏文件版权归 Mojang Studios / Microsoft 所有，使用前请确保已通过正规渠道购买 Minecraft。

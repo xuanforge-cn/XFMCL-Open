@@ -10,6 +10,7 @@
     <Version>1.0.0</Version>
     <Product>XFMCL Open</Product>
     <Company>玹砺科技 XUANFORGE</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 </Project>
