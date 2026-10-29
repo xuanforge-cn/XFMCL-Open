@@ -1,0 +1,34 @@
+## 构建产物
+bin/
+obj/
+publish/
+dist/
+
+## Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+
+## Android
+android/.gradle/
+android/build/
+android/app/build/
+android/.kotlin/
+android/local.properties
+android/signing.properties
+*.apk
+*.aab
+
+## 运行与日志
+crash.log
+*.log
+
+## 临时文件（可随时删除）
+temp_*
+*_temp
+
+## 系统文件
+.DS_Store
+Thumbs.db

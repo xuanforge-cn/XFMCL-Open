@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Xfmcl.Open.Core/Xfmcl.Open.Core.csproj" />
+    <Project Path="src/Xfmcl.Open.Desktop/Xfmcl.Open.Desktop.csproj" />
+    <Project Path="src/Xfmcl.Open.UI/Xfmcl.Open.UI.csproj" />
+  </Folder>
+</Solution>

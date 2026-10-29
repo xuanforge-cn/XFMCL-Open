@@ -1,0 +1,12 @@
+# Android 签名配置模板
+# 使用方式：复制为 signing.properties，再把路径改成你本机的凭据文件
+# signing.properties 已被 .gitignore 忽略，不会进入仓库
+#
+# 凭据文件（keystore.properties）需要包含以下字段，密码只存在这个文件里：
+#   storeFile=/absolute/path/to/your-release.jks
+#   storePassword=...
+#   keyAlias=...
+#   keyPassword=...
+#
+# 凭据文件不存在时，release 构建会自动跳过签名，不会导致构建失败
+credentialsFile=/absolute/path/to/keystore.properties

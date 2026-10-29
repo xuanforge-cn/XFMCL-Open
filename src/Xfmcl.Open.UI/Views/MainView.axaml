@@ -1,0 +1,427 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="using:XfmclOpen.UI.Models"
+             x:Class="XfmclOpen.UI.Views.MainView"
+             FontFamily="Inter, Microsoft YaHei UI, Noto Sans CJK SC, sans-serif">
+
+  <UserControl.Styles>
+    <Style Selector="TextBlock.eyebrow">
+      <Setter Property="FontSize" Value="10" />
+      <Setter Property="LetterSpacing" Value="1.4" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#6E7891" />
+    </Style>
+
+    <Style Selector="TextBlock.label">
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="#8A93A6" />
+    </Style>
+
+    <Style Selector="TextBlock.hint">
+      <Setter Property="FontSize" Value="10.5" />
+      <Setter Property="Foreground" Value="#5F6879" />
+      <Setter Property="TextWrapping" Value="Wrap" />
+      <Setter Property="LineHeight" Value="16" />
+    </Style>
+
+    <Style Selector="TextBlock.sectionTitle">
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#E4EAF5" />
+    </Style>
+
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="#D9121620" />
+      <Setter Property="BorderBrush" Value="#242C3B" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="14" />
+      <Setter Property="Padding" Value="18" />
+      <Setter Property="BoxShadow" Value="0 18 44 0 #59000000" />
+    </Style>
+
+    <Style Selector="Border.panel">
+      <Setter Property="Background" Value="#0B0E15" />
+      <Setter Property="BorderBrush" Value="#1C2331" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <Style Selector="TextBox">
+      <Setter Property="Background" Value="#0E1219" />
+      <Setter Property="BorderBrush" Value="#242C3B" />
+      <Setter Property="CornerRadius" Value="9" />
+      <Setter Property="MinHeight" Value="36" />
+      <Setter Property="Padding" Value="11,0" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="SelectionBrush" Value="#3D77FF" />
+    </Style>
+
+    <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+      <Setter Property="BorderBrush" Value="#31405C" />
+    </Style>
+
+    <Style Selector="Button.primary">
+      <Setter Property="Height" Value="42" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+      <Setter Property="Foreground" Value="#FFFFFF" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Button.primary /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Offset="0" Color="#3F7BFF" />
+            <GradientStop Offset="1" Color="#1D5BEA" />
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+            <GradientStop Offset="0" Color="#5A8DFF" />
+            <GradientStop Offset="1" Color="#2D6BF5" />
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style Selector="Button.primary:disabled /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#222A38" />
+      <Setter Property="Foreground" Value="#6E7891" />
+    </Style>
+
+    <Style Selector="Button.secondary">
+      <Setter Property="Height" Value="38" />
+      <Setter Property="CornerRadius" Value="10" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Foreground" Value="#C7D0E1" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style Selector="Button.secondary /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#171D29" />
+      <Setter Property="BorderBrush" Value="#2A3345" />
+      <Setter Property="BorderThickness" Value="1" />
+    </Style>
+
+    <Style Selector="Button.secondary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#1D2534" />
+      <Setter Property="BorderBrush" Value="#3A4761" />
+    </Style>
+
+    <Style Selector="Button.quiet">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="Foreground" Value="#8A93A6" />
+      <Setter Property="CornerRadius" Value="8" />
+      <Setter Property="Padding" Value="10,4" />
+      <Setter Property="FontSize" Value="11" />
+    </Style>
+
+    <Style Selector="Button.quiet:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#1A2130" />
+    </Style>
+
+    <Style Selector="ToggleButton.segment">
+      <Setter Property="Height" Value="30" />
+      <Setter Property="FontSize" Value="11" />
+      <Setter Property="Foreground" Value="#7F8AA0" />
+      <Setter Property="CornerRadius" Value="7" />
+      <Setter Property="HorizontalAlignment" Value="Stretch" />
+      <Setter Property="HorizontalContentAlignment" Value="Center" />
+      <Setter Property="Padding" Value="8,0" />
+    </Style>
+
+    <Style Selector="ToggleButton.segment /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="Transparent" />
+      <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style Selector="ToggleButton.segment:checked /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#1E2A44" />
+      <Setter Property="Foreground" Value="#DCE7FF" />
+    </Style>
+
+    <Style Selector="ToggleButton.segment:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#161D2A" />
+    </Style>
+
+    <Style Selector="ListBoxItem">
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Margin" Value="0,3" />
+      <Setter Property="CornerRadius" Value="9" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+
+    <Style Selector="ListBoxItem /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#0F141D" />
+      <Setter Property="BorderBrush" Value="#1A2130" />
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="CornerRadius" Value="9" />
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#141B27" />
+      <Setter Property="BorderBrush" Value="#26314A" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+      <Setter Property="Background" Value="#17233B" />
+      <Setter Property="BorderBrush" Value="#2C4270" />
+    </Style>
+
+    <Style Selector="ListBoxItem Border.accent">
+      <Setter Property="IsVisible" Value="False" />
+      <Setter Property="Background" Value="#3D77FF" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected Border.accent">
+      <Setter Property="IsVisible" Value="True" />
+    </Style>
+
+    <Style Selector="ListBoxItem TextBlock.versionId">
+      <Setter Property="Foreground" Value="#DFE6F2" />
+    </Style>
+
+    <Style Selector="ListBoxItem:selected TextBlock.versionId">
+      <Setter Property="Foreground" Value="#FFFFFF" />
+    </Style>
+  </UserControl.Styles>
+
+  <Grid>
+
+    <!-- ============ 背景 ============ -->
+    <Grid IsHitTestVisible="False" ClipToBounds="True">
+      <Border Background="#0A0C11" />
+      <Ellipse Width="860" Height="860" HorizontalAlignment="Right" VerticalAlignment="Top"
+               Margin="0,-520,-280,0">
+        <Ellipse.Fill>
+          <RadialGradientBrush>
+            <GradientStop Offset="0" Color="#3A2F6BFF" />
+            <GradientStop Offset="1" Color="#002F6BFF" />
+          </RadialGradientBrush>
+        </Ellipse.Fill>
+      </Ellipse>
+      <Ellipse Width="720" Height="720" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+               Margin="-300,0,0,-420">
+        <Ellipse.Fill>
+          <RadialGradientBrush>
+            <GradientStop Offset="0" Color="#2E1FA8FF" />
+            <GradientStop Offset="1" Color="#001FA8FF" />
+          </RadialGradientBrush>
+        </Ellipse.Fill>
+      </Ellipse>
+    </Grid>
+
+    <Grid Margin="24,20,24,16" RowDefinitions="Auto,*,Auto">
+
+      <!-- ============ 顶部 ============ -->
+      <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Margin="2,0,2,18">
+        <Border Width="42" Height="42" CornerRadius="12">
+          <Border.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+              <GradientStop Offset="0" Color="#4C86FF" />
+              <GradientStop Offset="1" Color="#1B58E8" />
+            </LinearGradientBrush>
+          </Border.Background>
+          <TextBlock Text="XO" FontSize="14" FontWeight="Bold" Foreground="White"
+                     HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+
+        <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center" Spacing="3">
+          <TextBlock Text="XFMCL Open" FontSize="20" FontWeight="SemiBold" Foreground="#F1F5FC" />
+          <TextBlock Text="跨平台 · 开源 · 仅离线登录" FontSize="11" Foreground="#7F8AA0"
+                     LetterSpacing="0.3" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+          <Border x:Name="JavaPill" CornerRadius="999" Padding="11,6"
+                  Background="#141B25" BorderBrush="#26303F" BorderThickness="1">
+            <StackPanel Orientation="Horizontal" Spacing="7">
+              <Ellipse x:Name="JavaDot" Width="6" Height="6" Fill="#6E7891" VerticalAlignment="Center" />
+              <TextBlock x:Name="JavaInfo" Text="正在检测 Java…" FontSize="10.5" Foreground="#9AA4B8"
+                         MaxWidth="300" TextTrimming="CharacterEllipsis" />
+            </StackPanel>
+          </Border>
+          <TextBlock Text="v1.0.0" FontSize="11" Foreground="#5F6879" VerticalAlignment="Center" />
+        </StackPanel>
+      </Grid>
+
+      <!-- ============ 主体 ============ -->
+      <Grid Grid.Row="1" ColumnDefinitions="326,18,*">
+
+        <!-- 左侧：账号与操作 -->
+        <Border Grid.Column="0" Classes="card">
+          <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
+
+            <StackPanel Grid.Row="0" Spacing="10">
+              <TextBlock Text="ACCOUNT" Classes="eyebrow" />
+              <TextBlock Text="离线登录" Classes="sectionTitle" />
+              <TextBox x:Name="NameBox" PlaceholderText="3-16 位字母、数字或下划线" MaxLength="16" />
+              <TextBlock Text="UUID 由玩家名在本地生成，不会上传到任何服务器。" Classes="hint" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="1" Spacing="9" Margin="0,22,0,0">
+              <TextBlock Text="下载源" Classes="label" />
+              <Border Background="#0E1219" BorderBrush="#242C3B" BorderThickness="1"
+                      CornerRadius="10" Padding="3">
+                <Grid ColumnDefinitions="*,*">
+                  <ToggleButton x:Name="SourceOfficialButton" Classes="segment"
+                                Content="Mojang 官方" Click="Source_Click" />
+                  <ToggleButton x:Name="SourceMirrorButton" Grid.Column="1" Classes="segment"
+                                Content="BMCLAPI 镜像" Click="Source_Click" />
+                </Grid>
+              </Border>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Spacing="9" Margin="0,22,0,0">
+              <TextBlock Text="游戏目录" Classes="label" />
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBox x:Name="GameDirBox" IsReadOnly="True" FontSize="11" />
+                <Button x:Name="BrowseButton" Grid.Column="1" Content="更改" Classes="secondary"
+                        Height="36" Margin="8,0,0,0" Padding="14,0" Click="Browse_Click" />
+              </Grid>
+            </StackPanel>
+
+            <Border Grid.Row="3" Classes="panel" Padding="13,12" Margin="0,24,0,0">
+              <Grid RowDefinitions="Auto,Auto,*">
+                <StackPanel Spacing="10">
+                  <TextBlock Text="当前选择" Classes="eyebrow" />
+                  <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                    <TextBlock Text="版本" Classes="label" />
+                    <TextBlock x:Name="SelectedVersionText" Grid.Column="1" Text="—"
+                               FontSize="12" Foreground="#DCE3F0" TextAlignment="Right"
+                               TextTrimming="CharacterEllipsis" />
+                    <TextBlock Grid.Row="1" Text="状态" Classes="label" Margin="0,7,0,0" />
+                    <TextBlock x:Name="SelectedStateText" Grid.Row="1" Grid.Column="1" Text="—"
+                               FontSize="12" Foreground="#8A93A6" TextAlignment="Right" Margin="0,7,0,0" />
+                  </Grid>
+                </StackPanel>
+
+                <Border Grid.Row="1" Height="1" Background="#1C2331" Margin="0,14" />
+
+                <StackPanel Grid.Row="2" Spacing="8">
+                  <TextBlock Text="说明" Classes="eyebrow" />
+                  <TextBlock Text="· 仅支持离线登录，不请求账号服务器" Classes="hint" />
+                  <TextBlock Text="· 文件按 SHA1 校验，已完成自动跳过" Classes="hint" />
+                  <TextBlock Text="· 所选源失败时自动切换备用地址" Classes="hint" />
+                </StackPanel>
+              </Grid>
+            </Border>
+
+            <StackPanel Grid.Row="4" Spacing="9">
+              <Button x:Name="InstallButton" Classes="secondary" IsEnabled="False" Click="Install_Click">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <Path Data="M8,2 L8,12 M3.5,8 L8,12.5 L12.5,8 M2.5,14.5 L13.5,14.5"
+                        Stroke="#B9C4D8" StrokeThickness="1.4" Width="14" Height="14" Stretch="Uniform" />
+                  <TextBlock Text="下载 / 补全文件" />
+                </StackPanel>
+              </Button>
+
+              <Button x:Name="LaunchButton" Classes="primary" IsEnabled="False" Click="Launch_Click">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <Path Data="M4,2 L13,8 L4,14 Z" Fill="White" Width="12" Height="12" Stretch="Uniform" />
+                  <TextBlock Text="启动游戏" />
+                </StackPanel>
+              </Button>
+
+              <Button x:Name="CancelButton" Content="取消当前任务" Classes="quiet"
+                      HorizontalAlignment="Center" IsVisible="False" Click="Cancel_Click" />
+            </StackPanel>
+          </Grid>
+        </Border>
+
+        <!-- 右侧：版本与日志 -->
+        <Border Grid.Column="2" Classes="card">
+          <Grid RowDefinitions="Auto,*,Auto">
+
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,12">
+              <TextBox x:Name="FilterBox" PlaceholderText="搜索版本，例如 1.20.1" TextChanged="Filter_TextChanged" />
+              <Button x:Name="RefreshButton" Grid.Column="1" Classes="quiet" Margin="8,0,0,0"
+                      Click="Refresh_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                  <Path Data="M13,8 A5,5 0 1 1 8,3 M8,0.8 L8,5.2 L12.2,5.2"
+                        Stroke="#9AA4B8" StrokeThickness="1.3" Width="13" Height="13" Stretch="Uniform" />
+                  <TextBlock Text="刷新" />
+                </StackPanel>
+              </Button>
+            </Grid>
+
+            <ListBox x:Name="VersionList" Grid.Row="1" Background="Transparent" BorderThickness="0"
+                     SelectionChanged="VersionList_SelectionChanged">
+              <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="models:VersionRow">
+                  <Grid ColumnDefinitions="4,*,Auto" MinHeight="54">
+                    <Border Classes="accent" Width="3" CornerRadius="2" Margin="0,12"
+                            HorizontalAlignment="Left" VerticalAlignment="Stretch" />
+                    <StackPanel Grid.Column="1" Spacing="4" Margin="14,10,10,10" VerticalAlignment="Center">
+                      <TextBlock Classes="versionId" Text="{Binding Id}" FontSize="13.5"
+                                 FontWeight="SemiBold" />
+                      <StackPanel Orientation="Horizontal" Spacing="9">
+                        <Border Background="#182031" CornerRadius="5" Padding="6,2">
+                          <TextBlock Text="{Binding TypeLabel}" FontSize="9.5" Foreground="#93A0B8" />
+                        </Border>
+                        <TextBlock Text="{Binding ReleaseDate}" FontSize="10.5" Foreground="#5F6879"
+                                   VerticalAlignment="Center" />
+                      </StackPanel>
+                    </StackPanel>
+                    <Border Grid.Column="2" IsVisible="{Binding Installed}" Background="#12301F"
+                            BorderBrush="#1E4A31" BorderThickness="1" CornerRadius="6"
+                            Padding="8,3" Margin="0,0,12,0" VerticalAlignment="Center">
+                      <TextBlock Text="已安装" FontSize="9.5" Foreground="#4ADE80" />
+                    </Border>
+                  </Grid>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Grid Grid.Row="2" RowDefinitions="Auto,Auto,Auto" Margin="0,14,0,0">
+              <Grid ColumnDefinitions="*,Auto">
+                <TextBlock x:Name="StatusText" Text="准备就绪" FontSize="12" Foreground="#9AA4B8" />
+                <TextBlock x:Name="ProgressText" Grid.Column="1" FontSize="10.5" Foreground="#6E7891"
+                           VerticalAlignment="Center" />
+              </Grid>
+
+              <ProgressBar x:Name="Bar" Grid.Row="1" Minimum="0" Maximum="1" Value="0"
+                           Height="5" Margin="0,9,0,12" CornerRadius="3">
+                <ProgressBar.Foreground>
+                  <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Offset="0" Color="#3D77FF" />
+                    <GradientStop Offset="1" Color="#5BE2FF" />
+                  </LinearGradientBrush>
+                </ProgressBar.Foreground>
+              </ProgressBar>
+
+              <Border Grid.Row="2" Classes="panel" Height="132" Padding="11,9">
+                <Grid RowDefinitions="Auto,*">
+                  <TextBlock Text="RUN LOG" Classes="eyebrow" FontSize="9" />
+                  <ScrollViewer x:Name="LogScroll" Grid.Row="1" Margin="0,6,0,0"
+                                VerticalScrollBarVisibility="Auto"
+                                HorizontalScrollBarVisibility="Auto">
+                    <SelectableTextBlock x:Name="LogText"
+                                         FontFamily="Cascadia Mono, Consolas, DejaVu Sans Mono, monospace"
+                                         FontSize="10.5" Foreground="#7E8AA2" TextWrapping="NoWrap" />
+                  </ScrollViewer>
+                </Grid>
+              </Border>
+            </Grid>
+          </Grid>
+        </Border>
+      </Grid>
+
+      <!-- ============ 底部 ============ -->
+      <Grid Grid.Row="2" ColumnDefinitions="*,Auto" Margin="2,14,2,0">
+        <TextBlock Text="玹砺科技 XUANFORGE · MIT License · 本项目与 Mojang / Microsoft 无关"
+                   FontSize="9.5" Foreground="#4E5768" VerticalAlignment="Center" />
+        <Button Grid.Column="1" Content="打开游戏目录" Classes="quiet" Click="OpenDir_Click" />
+      </Grid>
+    </Grid>
+  </Grid>
+</UserControl>

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <AssemblyName>Xfmcl.Open.UI</AssemblyName>
+    <RootNamespace>XfmclOpen.UI</RootNamespace>
+    <Version>1.0.0</Version>
+    <Product>XFMCL Open</Product>
+    <Company>玹砺科技 XUANFORGE</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Xfmcl.Open.Core\Xfmcl.Open.Core.csproj" />
+  </ItemGroup>
+
+</Project>
