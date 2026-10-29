@@ -67,7 +67,6 @@ XFMCL 开源版/
 │  └─ endpoints.example.json   下载端点模板（复制后填写）
 ├─ LICENSE
 ├─ README.md
-├─ 修改记录.md
 ├─ src/
 │  ├─ Xfmcl.Open.Core/         版本清单、下载、文件补全、Java 探测、离线身份、启动编排
 │  ├─ Xfmcl.Open.UI/           跨平台界面（MainView）、设置、版本行模型
